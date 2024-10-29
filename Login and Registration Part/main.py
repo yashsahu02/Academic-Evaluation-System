@@ -1,19 +1,28 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect,session
 import mysql.connector
+import os
 
 app=Flask(__name__)
+app.secret_key=os.urandom(24)
 
 conn=mysql.connector.connect(host="localhost",user="root",password="yash",database="academic_evaluation")
 cursor=conn.cursor()
 
 
 @app.route("/")
-def home():
+def login():
     return render_template('login.html')
 
 @app.route('/add_user')
 def add_user():
     return render_template('addUser.html')
+
+@app.route('/home')
+def home():
+    if 'user_id' in session:
+        return render_template('home.html')
+    else:
+        return redirect('/')
 
 
 @app.route('/login_validation', methods=['POST'])
@@ -24,15 +33,21 @@ def login_validation():
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}' AND `PASSWORD` LIKE '{}'""".format(userid,password))
     
     user_detail=cursor.fetchall()
+    category=user_detail[0][2]
     print(user_detail)
     if len(user_detail)>0:
-        return render_template('home.html')
+        ## activating session when the user has logged in
+        session['user_id']=user_detail[0][0]    ## session setting
+        if category=="S": 
+            ## if category is "S" go to studentHome.html
+            return render_template("studentHome.html")
+        else:
+            ## otherwise category will be "F" so go to facultyHome.html
+            return render_template("facultyHome.html")
     else:
-        return render_template('login.html')
-    
-        
+        return redirect('/')
+       
     # return "UserID: {} and Password: {}".format(userid,password)
-    return "Hello"
 
 @app.route('/register',methods=['POST'])
 def register():
@@ -44,9 +59,25 @@ def register():
     if code=="9460":
         cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
         conn.commit()
+        
+        # cursor.execute("""SELECT * FROM `login` WHERE `userid` LIKE '{}'""".format(userid))
+        # myuser=cursor.fetchall()
+        # session['user_id']=myuser[0][0]
+        # return redirect('/home')
+        
         return "User Added Successfully...."
     else:
         return "Wrong Code!.. Please Enter the valid code...."
+    
+    
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id')
+    return redirect('/')
+
+## we will add this logout in our home page
+        
     
     
 
