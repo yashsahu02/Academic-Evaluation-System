@@ -28,6 +28,8 @@ def home():
 @app.route('/login_validation', methods=['POST'])
 def login_validation():
     userid=request.form.get('userid')
+    userid=userid.replace(" ","")
+    
     password=request.form.get('password')
     
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}' AND `PASSWORD` LIKE '{}'""".format(userid,password))
@@ -53,21 +55,38 @@ def login_validation():
 def register():
     code=request.form.get('code')
     userid=request.form.get('userid')
+    userid=userid.replace(" ","")
     password=request.form.get('password')
     category=request.form.get('category')
     
     if code=="9460":
-        cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
-        conn.commit()
+        
+        cursor.execute("""SELECT `userid` FROM `login` WHERE EXISTS (SELECT `userid` FROM `login` WHERE `userid` LIKE '{}')""".format(userid))
+        
+        userid_details=cursor.fetchall()
+        
+        try:
+            if(len(userid_details)==0):
+                cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
+                conn.commit()
+                return "User Added Successfully...."
+            
+            else:
+                return "User Exist for this userid......."
+                
+        
+        except IndexError:
+            return "Return from except........"
         
         # cursor.execute("""SELECT * FROM `login` WHERE `userid` LIKE '{}'""".format(userid))
         # myuser=cursor.fetchall()
         # session['user_id']=myuser[0][0]
         # return redirect('/home')
         
-        return "User Added Successfully...."
+        
     else:
         return "Wrong Code!.. Please Enter the valid code...."
+    
     
     
 
