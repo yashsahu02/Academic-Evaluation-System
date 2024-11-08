@@ -34,20 +34,32 @@ def login_validation():
     
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}' AND `PASSWORD` LIKE '{}'""".format(userid,password))
     
+    #### Here I will try to apply try and except ---------->
+    
     user_detail=cursor.fetchall()
-    category=user_detail[0][2]
     print(user_detail)
-    if len(user_detail)>0:
-        ## activating session when the user has logged in
-        session['user_id']=user_detail[0][0]    ## session setting
-        if category=="S": 
-            ## if category is "S" go to studentHome.html
-            return render_template("studentHome.html")
+    if(len(user_detail)>0):
+        
+        # cursor.execute("""SELECT * FROM `login` WHERE EXISTS (SELECT `userid` FROM `login` WHERE `userid` LIKE '{}' AND `password` LIKE '{}')""".format(userid,password))
+        
+        # check_password = cursor.fetchall()
+        
+        if(password==user_detail[0][1]):
+            category=user_detail[0][2]
+            ## activating session when the user has logged in
+            session['user_id']=user_detail[0][0]    ## session setting
+            if category=="S": 
+                ## if category is "S" go to studentHome.html
+                return render_template("studentHome.html")
+            else:
+                ## otherwise category will be "F" so go to facultyHome.html
+                return render_template("facultyHome.html")
+            
         else:
-            ## otherwise category will be "F" so go to facultyHome.html
-            return render_template("facultyHome.html")
+            return "Wrong Password........."
+            
     else:
-        return redirect('/')
+        return "Invalid UserID or Password...."
        
     # return "UserID: {} and Password: {}".format(userid,password)
 
