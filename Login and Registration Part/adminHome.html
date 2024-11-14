@@ -62,8 +62,14 @@
             text-decoration: none;
         }
 
+        .option:hover{
+            background-color: #509CDB;
+            border-radius: 5px;
+        }
+
         a:hover {
             text-decoration: underline;
+            transition: all 0.2s;
         }
 
         /* right side section of page */
@@ -447,7 +453,7 @@
 
                 <h1>Search Teacher</h1>
                 <div class="form-container">
-                    <h2>Add New User</h2>
+                    <h2>Add New Teacher</h2>
                     <form method='post' action='/register'>
                         <div class="form-group">
                             <label for="code">Enter the code</label>
@@ -465,15 +471,17 @@
                             <p>Select Category</p>
 
                             <div class="radio-container">
+                                <!--
                                 <div class="radio-label">
                                     <label for="student">
                                         <input type="radio" id="student" name="category" value="S">
                                         Student
                                     </label>
                                 </div>
+                                -->
                                 <div class="radio-label">
                                     <label for="faculty">
-                                        <input type="radio" id="faculty" name="category" value="F">
+                                        <input type="radio" id="faculty" name="category" value="F" checked>
                                         Faculty
                                     </label>
                                 </div>
