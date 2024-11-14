@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,session
+from flask import Flask,render_template,request,redirect,session,url_for
 import mysql.connector
 import os
 
@@ -13,9 +13,9 @@ cursor=conn.cursor()
 def login():
     return render_template('login.html')
 
-@app.route('/add_user')
+@app.route('/admin_login')
 def add_user():
-    return render_template('addUser.html')
+    return render_template('adminLogin.html')
 
 @app.route('/home')
 def home():
@@ -23,6 +23,15 @@ def home():
         return render_template('home.html')
     else:
         return redirect('/')
+    
+@app.route('/admin_login_validation',methods=['POST'])
+def admin_login_validation():
+    code=request.form.get('code')
+    
+    if code=="9460":
+        return render_template("adminHome.html")
+    else:
+        return "Wrong Code! Enter the valid code..." 
 
 
 @app.route('/login_validation', methods=['POST'])
@@ -59,7 +68,7 @@ def login_validation():
             return "Wrong Password........."
             
     else:
-        return "Invalid UserID or Password...."
+        return "Invalid UserID or Password....<a href='/'>Try Again!</a>"
        
     # return "UserID: {} and Password: {}".format(userid,password)
 
@@ -102,10 +111,11 @@ def register():
     
     
 
-@app.route('/logout')
+@app.route('/logout',methods=['POST'])
 def logout():
-    session.pop('user_id')
+    # session.pop('code')
     return redirect('/')
+    # return render_template("login.html")
 
 ## we will add this logout in our home page
         
