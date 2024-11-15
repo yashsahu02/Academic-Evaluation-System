@@ -119,8 +119,20 @@ def logout():
 
 ## we will add this logout in our home page
         
+  
+### Action to perform when admin search for any teacher
+@app.route('/search-teacher',methods=['POST'])
+def search_teacher():
+    userid=request.form.get('userid')  
+    userid=userid.replace(' ','')
+    cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
+    user_detail=cursor.fetchall()
     
-    
+    category=user_detail[0][2]
+    if category=="S" or len(user_detail)==0:
+        return "No any Teacher exist for this userid....."
+    else:
+        return "will be implemented......."
 
 
 if __name__=="__main__":

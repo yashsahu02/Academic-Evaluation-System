@@ -97,6 +97,9 @@
             display: flex;
             justify-content: end;
             background-color: rgb(246, 241, 241);
+            position: fixed;
+            right: 0;
+            left: 18%;
         }
 
         .logout-btn {
@@ -105,12 +108,14 @@
             padding: 10px 20px;
             border-radius: 8px;
             margin-top: 10px;
-            margin-right: 50px;
+            margin-right: 40px;
             height: 40px;
             border: none;
             font-size: 14px;
             font-weight: normal;
             cursor: pointer;
+            position: fixed;
+            right: 0px;
         }
 
         .logout-btn:hover {
@@ -122,6 +127,7 @@
         .dashboard-part {
             margin-top: 50px;
             margin-bottom: 50px;
+            padding-top: 20px;
         }
 
         .dashboard-content {
@@ -131,7 +137,8 @@
         }
 
         .welcome-msg {
-            font-weight: normal;
+            font-weight: 600;
+            color: #4f4f4f;
             text-align: center;
             margin-top: 50px;
         }
@@ -158,6 +165,55 @@
 
         /* Teacher Part */
 
+        .teacher-part {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding-top: 50px;
+        }
+
+
+        /*Search for any Teacher*/
+
+        .search-teacher{
+            width: 70%;
+            margin: auto;
+            margin-top: 60px;
+        }
+
+        .st-form-cont{
+            max-width: 600px;
+            width: 300px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .st-form-cont>div{
+            display: flex;
+
+        }
+
+        .st-form-group{
+            display: flex;
+            gap: 20px;
+        }
+
+        .st-form-group>input{
+            padding: 5px;
+        }
+
+
+        /*Add a new Teacher*/
+
+        .add-teacher {
+            width: 70%;
+            margin: auto;
+            margin-top: 60px;
+        }
+
         .form-container {
             max-width: 600px;
             width: 300px;
@@ -166,13 +222,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             text-align: center;
+            margin: auto;
         }
 
-        .form-container>h2 {
+        .h2-in-form {
             margin-bottom: 20px;
             padding: 10px 0px;
             color: #333;
             text-align: center;
+            font-weight: normal;
         }
 
         .form-group {
@@ -207,7 +265,7 @@
             outline: none;
         }
 
-        .add-user-button {
+        .add-user-button,.search-teacher-button{
             background-color: #007bff;
             color: white;
             border: none;
@@ -218,9 +276,11 @@
             font-size: 16px;
         }
 
+        /*
         .add-user-button:hover {
             background-color: #0056b3;
         }
+        */
 
         .login {
             display: block;
@@ -449,11 +509,23 @@
 
         <!--Dashboard Part-->
         <div class="teacher-part" id="teacher">
-            <div class="add-teacher">
+            <!-- Search for a teacher -->
+             <div class="search-teacher">
+                <div class="st-form-cont">
+                    <h2 class="h2-in-form">Search Teacher</h2>
+                    <form method="post" action="/search-teacher">
+                        <div class="st-form-group">
+                            <input type="text" placeholder="Enter Teacher's UserID" name="userid" required>
+                            <button type="submit" class="search-teacher-button">Search</button>
+                        </div>
+                    </form>
+                </div>
+             </div>
 
-                <h1>Search Teacher</h1>
+            <!-- Add a new Teacher -->
+            <div class="add-teacher">
                 <div class="form-container">
-                    <h2>Add New Teacher</h2>
+                    <h2 class="h2-in-form">Add New Teacher</h2>
                     <form method='post' action='/register'>
                         <div class="form-group">
                             <label for="code">Enter the code</label>
@@ -488,7 +560,7 @@
                             </div>
                         </div>
                         <button type="submit" class="add-user-button">Add User</button>
-                        <a href="/" class="login">Login</a>
+                       
                     </form>
                 </div>
             </div>
