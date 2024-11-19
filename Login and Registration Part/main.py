@@ -127,12 +127,25 @@ def search_teacher():
     userid=userid.replace(' ','')
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
     user_detail=cursor.fetchall()
-    
+    if len(user_detail)==0:
+        # return "No any Teacher exist for this userid....."
+        return render_template('adminHome.html',noUser_visibility="visible",noUser_display="block",userid=userid, anchor="teacher")
+        
     category=user_detail[0][2]
-    if category=="S" or len(user_detail)==0:
-        return "No any Teacher exist for this userid....."
+    if category=="S":
+        # return "No any Teacher exist for this userid....."
+        
+        return render_template('adminHome.html',noTeacher_visibility="visible",noTeacher_display="block",userid=userid, anchor="teacher")
+    
     else:
-        return "will be implemented......."
+        cursor.execute("""SELECT login.userid,login.password,facultyinfo.fname,facultyinfo.lname,facultyinfo.email,facultyinfo.phone,facultyinfo.dname,facultyinfo.gender,facultyinfo.address FROM `login` INNER JOIN `facultyinfo` ON login.userid=facultyinfo.userid and login.userid='{}';""".format(userid))
+        result=cursor.fetchall()
+        if len(result)==0:
+            # return "Teacher is registerd for this userid but information is not updated......"
+            return render_template('adminHome.html',noDetails_visibility="visible",noDetails_display="block",userid=userid,anchor="teacher")
+        else:
+            # return render_template('teacherDetail.html',Result=result)
+            return render_template('adminHome.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",Result=result,anchor="teacher")
 
 
 if __name__=="__main__":
