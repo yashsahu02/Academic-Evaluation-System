@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Details</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            width: 60%;
+            margin: auto;
+            font-size: 20px;
+            min-width: 600px;
+            /*
+            display: none;
+            */
+        }
+        
+        .content-table thead tr{
+            background-color: #009879;
+            border-radius: 5px;
+            color: #ffffff;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .content-table thead tr th{
+            padding: 12px 15px;
+        }
+
+        
+        .content-table td,
+        .content-table td{
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        .content-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <table id="example" class="content-table">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>Password</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in Result %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
