@@ -213,6 +213,15 @@
             margin-top: 20px;
         }
 
+        .showTeacherDetail p{
+            margin: auto;
+            text-align: center
+        }
+
+        .showTeacherDetail p a{
+            text-decoration: none;
+        }
+
         .content-table {
             border-collapse: collapse;
             margin: 25px 0;
@@ -280,6 +289,10 @@
         .noDetails p{
             margin: auto;
             text-align: center
+        }
+
+        .noDetails p a{
+            text-decoration: none;
         }
 
         /* styling for div which shows user not registed for userid */
@@ -664,6 +677,8 @@
                 {% else %}
                 <p>No data available</p>
                 {% endif %}
+                <p>You can update the details <a href="/show_update_teacher_details_form" target="_blank">here</a></p>
+
 
                 <!-- button "Update Details" -->
             </div>
@@ -676,6 +691,7 @@
             <!-- Div that show "teacher exist but details are not updated" -->
             <div class="noDetails" style="visibility: {{noDetails_visibility}}; display: {{noDetails_display}}">
                 <p>Teacher is registered for "{{userid}}". But the details are not updated.</p>
+                <p>You can add details <a href="/show_update_teacher_details_form" target="_blank">here</a></p>
                 <!-- Button "Add Details" -->
             </div>
 
@@ -728,6 +744,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
         <div class="trail" id="student">
             Student
