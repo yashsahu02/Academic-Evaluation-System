@@ -29,6 +29,14 @@ def go_to_admin_teachers():
 def go_to_admin_students():
     return render_template('adminStudents.html')
 
+@app.route('/admin_evaluation')
+def go_to_admin_evaluaiton():
+    return render_template('adminEvaluation.html')
+
+@app.route('/admin_Profile')
+def go_to_admin_Profile():
+    return render_template('adminProfile.html')
+
 # @app.route('/admin_dashboard')
 # def go_to_admin_dashboard():
 #     return render_template('adminDashboard.html')
