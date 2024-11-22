@@ -33,8 +33,8 @@ def go_to_admin_students():
 def go_to_admin_evaluaiton():
     return render_template('adminEvaluation.html')
 
-@app.route('/admin_Profile')
-def go_to_admin_Profile():
+@app.route('/admin_profile')
+def go_to_admin_profile():
     return render_template('adminProfile.html')
 
 # @app.route('/admin_dashboard')
@@ -141,31 +141,33 @@ def logout():
         
   
 ### Action to perform when admin search for any teacher
-@app.route('/search-teacher',methods=['POST'])
+@app.route('/search_teacher',methods=['POST'])
 def search_teacher():
-    userid=request.form.get('userid')  
+    userid=request.form.get('userid') 
+     
     userid=userid.replace(' ','')
+    
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
     user_detail=cursor.fetchall()
     if len(user_detail)==0:
         # return "No any Teacher exist for this userid....."
-        return render_template('adminHome.html',noUser_visibility="visible",noUser_display="block",userid=userid, anchor="teacher")
+        return render_template('adminTeachers.html',noUser_visibility="visible",noUser_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid, anchor="teacher")
         
     category=user_detail[0][2]
     if category=="S":
         # return "No any Teacher exist for this userid....."
         
-        return render_template('adminHome.html',noTeacher_visibility="visible",noTeacher_display="block",userid=userid, anchor="teacher")
+        return render_template('adminTeachers.html',noTeacher_visibility="visible",noTeacher_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid, anchor="teacher")
     
     else:
         cursor.execute("""SELECT login.userid,login.password,facultyinfo.fname,facultyinfo.lname,facultyinfo.email,facultyinfo.phone,facultyinfo.dname,facultyinfo.gender,facultyinfo.address FROM `login` INNER JOIN `facultyinfo` ON login.userid=facultyinfo.userid and login.userid='{}';""".format(userid))
         result=cursor.fetchall()
         if len(result)==0:
             # return "Teacher is registerd for this userid but information is not updated......"
-            return render_template('adminHome.html',noDetails_visibility="visible",noDetails_display="block",userid=userid,anchor="teacher")
+            return render_template('adminTeachers.html',noDetails_visibility="visible",noDetails_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid,anchor="teacher")
         else:
             # return render_template('teacherDetail.html',Result=result)
-            return render_template('adminHome.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",Result=result,anchor="teacher")
+            return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result,anchor="teacher")
 
 
 @app.route('/show_update_teacher_details_form')
