@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <title>Add New Teacher</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Kumbh sans";
+        }
+
+        .form-container {
+            width: 50%;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .h2-in-form {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px 0px;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        .address-holder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 108%;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            width: 90%;
+        }
+
+        .form-group label,
+        p {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input,select {
+            width: 85%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+
+
+        input[type=radio] {
+            color: red;
+            cursor: pointer;
+            width: 30%;
+
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .add_details{
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            width: 30%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2 class="h2-in-form">Add New Teacher</h2>
+        <form method='post' action='/add_new_teacher'>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="userid">User ID</label>
+                    <input type="text" id="userid" name="userid" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="fname" required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lname" required>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <!-- <input type="email" id="phone-number" name="phone-number" required> -->
+                    <input placeholder="Format: 10-digit number" type="tel" maxlength="10" minlength="10" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="lang">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dname">Department</label>
+                    <select name="dname" id="lang">
+                        <option value="CSE">Computer Science &amp; Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                        <option value="EE">Electical Engineering</option>
+                        <option value="CE">Civil Engineering</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Management">Management Department</option>
+                        <option value="Education">Education Department</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row address-holder">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+            </div>
+
+            <button type="submit" class="add_details">Add Teacher</button>
+
+        </form>
+    </div>
+</body>
+
+</html>

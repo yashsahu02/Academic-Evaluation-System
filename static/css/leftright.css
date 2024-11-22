@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Kumbh sans";
+}
+
+/* left side section of page */
+
+.left {
+    width: 18%;
+    height: 100%;
+    font-size: 18px;
+    color: white;
+    background-color: #152259;
+    display: inline-block;
+    position: fixed;
+}
+
+.left>h2 {
+    font-size: 18px;
+    text-align: center;
+    margin: 60px 0px;
+}
+
+.opt-container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.option {
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding: 15px;
+}
+
+.option>svg {
+    padding: 0px 20px 0px 10px;
+}
+
+.option>a {
+    color: white;
+    text-decoration: none;
+}
+
+/* current active a tag  */
+.activeLink{
+    background-color: #509CDB;
+    border-radius: 5px;
+}
+
+.option:hover {
+    background-color: #509CDB;
+    border-radius: 5px;
+}
+
+
+a:hover {
+    text-decoration: underline;
+    transition: all 0.2s;
+}
+
+/* right side section of page */
+
+.right {
+    width: 82%;
+    margin-left: 18%;
+    height: 100%;
+    font-size: 18px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.trail {
+    width: 100%;
+    border-top: 2px solid black;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: end;
+    background-color: rgb(246, 241, 241);
+    position: fixed;
+    right: 0;
+    left: 18%;
+}
+
+.logout-btn {
+    background-color: #509CDB;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-right: 40px;
+    height: 40px;
+    border: none;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+    position: fixed;
+    right: 0px;
+}
+
+.logout-btn:hover {
+    background-color: #1784de;
+}

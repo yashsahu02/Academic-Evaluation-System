@@ -4,163 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/leftright.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <title>Home Page for student</title>
+    <title>Admin - Teacher</title>
 
     <style>
         * {
             margin: 0;
             padding: 0;
             font-family: "Kumbh sans";
-        }
-
-        /* left side section of page */
-
-        .left {
-            width: 18%;
-            height: 100%;
-            font-size: 18px;
-            color: white;
-            background-color: #152259;
-            display: inline-block;
-            position: fixed;
-        }
-
-        .left>h2 {
-            font-size: 18px;
-            text-align: center;
-            margin: 60px 0px;
-        }
-
-        .opt-container {
-            width: 80%;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .option {
-            color: white;
-            display: flex;
-            align-items: center;
-            width: 80%;
-            padding: 15px;
-        }
-
-        .option>svg {
-            padding: 0px 20px 0px 10px;
-        }
-
-        .option>a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .option:hover {
-            background-color: #509CDB;
-            border-radius: 5px;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            transition: all 0.2s;
-        }
-
-        /* right side section of page */
-
-        .right {
-            width: 82%;
-            margin-left: 18%;
-            height: 100%;
-            font-size: 18px;
-            display: inline-block;
-        }
-
-        .trail {
-            width: 100%;
-            border-top: 2px solid black;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .navbar {
-            width: 100%;
-            height: 60px;
-            display: flex;
-            justify-content: end;
-            background-color: rgb(246, 241, 241);
-            position: fixed;
-            right: 0;
-            left: 18%;
-        }
-
-        .logout-btn {
-            background-color: #509CDB;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-top: 10px;
-            margin-right: 40px;
-            height: 40px;
-            border: none;
-            font-size: 14px;
-            font-weight: normal;
-            cursor: pointer;
-            position: fixed;
-            right: 0px;
-        }
-
-        .logout-btn:hover {
-            background-color: #1784de;
-        }
-
-        /* Dashboard Part */
-
-        .dashboard-part {
-            margin-top: 50px;
-            margin-bottom: 50px;
-            padding-top: 20px;
-        }
-
-        .dashboard-content {
-            width: 70%;
-            margin: auto;
-            margin-top: 60px;
-        }
-
-        .welcome-msg {
-            font-weight: 600;
-            color: #4f4f4f;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .rows {
-            display: flex;
-            gap: 8px;
-            flex-direction: column;
-            margin-top: 50px;
-        }
-
-        .action {
-            display: flex;
-            gap: 20px;
-        }
-
-        .action>p {
-            font-weight: 600;
-        }
-
-        .rows>p {
-            text-align: justify;
         }
 
         /* Teacher Part */
@@ -173,47 +29,49 @@
         .search-teacher {
             width: 600px;
             margin: auto;
-            
             display: flex;
             justify-content: flex-start;
             align-items: center;
             background-color: #FCFAFA;
         }
-        
-        .search-teacher>svg{
+
+        .search-teacher>svg {
             margin: 0 10px;
         }
 
-        .search{
+        .search {
             width: 565px;
         }
-        
-        .search > form{
+
+       /* form to search for teacher detail */ 
+        .search>form {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .search > form > input[type='search']{
+
+        .search>form>input[type='search'] {
             width: 500px;
             height: 40px;
             border: none;
             padding: 5px;
             background-color: #FCFAFA;
             font-size: 16px;
+            outline: none;
         }
-        
-        .searchBtn{
+
+        .searchBtn {
             width: 100px;
             height: 40px;
             border-radius: 5PX;
-            background-color:#68b9fc;
+            background-color: #68b9fc;
             border: none;
             font-size: 16px;
+            color: #FFFFFF;
         }
 
-        .noTeacher{
-            width: 100%;
+        .initialImage {
+            width: 90%;
             margin: auto;
             margin-top: 100px;
             display: flex;
@@ -221,16 +79,172 @@
             align-items: center;
         }
 
-        .noTeacher>img{
-            
+        .initialImage>img {
+
         }
 
-        .addTeacher{
-            width: 100%;
-            margin: auto;            
+        /* styling for div which shows the details of teacher */
+
+        .showTeacherDetail {
+            width: 90%;
+            margin: auto;
+            margin-top: 100px;
+            display: none;
+            visibility: hidden;
         }
 
-        .addTeacher>p{
+        .showTeacherDetail p{
+            margin: auto;
+            text-align: center
+        }
+
+        .showTeacherDetail p a{
+            text-decoration: none;
+        }
+
+        /* details of the teacher */
+        .detailsContainer {
+            width: 30%;
+            margin: auto;
+            box-shadow: 0px 4px 5px #A7A7A7;
+            border-radius: 5px;
+            padding:20px;
+        }
+
+        .basicDetails{
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .basicDetails>h3{
+            font-weight:normal;
+        }
+
+        .name>h3{
+            font-weight: 700;
+        }
+
+        .contactDetails{
+            width:90%;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 20px;
+            color: #A7A7A7;
+        }
+        
+        .cd-row{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cd-row>p{
+            margin:0;
+        }
+
+        .additionalDetails{
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .additionalDetails>p{
+            margin:0;
+        }
+
+        .row{
+            width:100%;
+            display: flex;
+            justify-content: space-between;
+            align
+        }
+
+        .department{
+            display:inline-block;
+        }
+        .gender{
+            display:inline-block;
+        }
+
+        .department p:nth-of-type(2){
+            color:#A7A7A7;
+        }
+        .gender p:nth-of-type(2){
+            color:#A7A7A7;
+        }
+
+
+        
+
+        /* styling for div which shows teacher doesn't exist */
+        .noTeacher {
+            width: 90%;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            display: none;
+            visibility: hidden;
+        }
+
+        .noTeacher p{
+            margin: auto;
+            text-align: center;
+        }
+
+        /* styling for div which shows user not registed for userid */
+        .noUser{
+            width: 90%;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            display: none;
+            visibility: hidden;
+        }
+
+        .noUser p{
+            margin: auto;
+            text-align: center
+        }
+
+        .noUser > a{
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: auto;
+        }
+
+        /* Add new teacher and update paragraph */
+        .addTeacher {
+            width: 90%;
+            margin: auto;
+            position: fixed;
+            bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .addTeacher>p {
             margin: auto;
             text-align: center;
         }
@@ -253,9 +267,9 @@
                     <path d="M15 16C14.2005 16.6224 13.1502 17 12 17C10.8498 17 9.79952 16.6224 9 16"
                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
-                <a href="#dashboard">Dashboard</a>
+                <a href="/admin_dashboard">Dashboard</a>
             </div>
-            <div class="option">
+            <div class="option activeLink">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff"
                     fill="none">
                     <path d="M12 22L10 16H2L4 22H12ZM12 22H16" stroke="currentColor" stroke-width="1.5"
@@ -272,7 +286,7 @@
                     <path d="M14 17.5H20C21.1046 17.5 22 18.3954 22 19.5V20C22 21.1046 21.1046 22 20 22H19"
                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
-                <a href="#teacher">Teachers</a>
+                <a href="/admin_teachers">Teachers</a>
             </div>
             <div class="option">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff"
@@ -287,7 +301,7 @@
                         d="M20.4774 9.49951V16.5006M20.4774 16.5006C19.6864 17.9471 19.3366 18.7221 18.9813 20.0011C18.9042 20.4562 18.9654 20.6855 19.2786 20.8891C19.4059 20.9718 19.5588 21.0012 19.7104 21.0012H21.229C21.3904 21.0012 21.5533 20.9675 21.6863 20.8757C21.9774 20.6747 22.0523 20.4541 21.9734 20.0011C21.662 18.8135 21.2653 18.0016 20.4774 16.5006Z"
                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <a href="#student">Students</a>
+                <a href="/admin_students">Students</a>
             </div>
             <div class="option">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff"
@@ -298,7 +312,7 @@
                         d="M17.7048 9.33333L14.8311 13.9845C14.4123 14.6623 13.9369 15.686 13.0749 15.5344C12.0611 15.356 11.5742 13.8449 10.7026 13.3445C9.99285 12.9371 9.47971 13.4281 9.06475 14M21 4L19.1465 7M5 20L7.52632 16.2667"
                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <a href="">Evaluation</a>
+                <a href="/admin_evaluation">Evaluation</a>
             </div>
             <div class="option">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff"
@@ -308,11 +322,12 @@
                         d="M7.5 17C9.8317 14.5578 14.1432 14.4428 16.5 17M14.4951 9.5C14.4951 10.8807 13.3742 12 11.9915 12C10.6089 12 9.48797 10.8807 9.48797 9.5C9.48797 8.11929 10.6089 7 11.9915 7C13.3742 7 14.4951 8.11929 14.4951 9.5Z"
                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
-                <a href="">Profile</a>
+                <a href="/admin_profile">Profile</a>
             </div>
         </div>
 
     </div>
+
 
     <div class="right">
         <div class="navbar">
@@ -320,7 +335,7 @@
                 <input type="submit" name="code" class="logout-btn" value="Log Out">
             </form>
         </div>
-        
+
 
         <!-- Teachers Part-->
 
@@ -337,41 +352,100 @@
                         stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
                 </svg>
                 <div class="search">
-                    <form action="" class="">
+                    <form method="post" action="/search_teacher" class="">
                         <!-- <img src="Login and Registration Part\Images\searchImage.png" alt=""> -->
-                        <input type="search" placeholder="Search for a teacher by their usrid" required>
+                        <input type="search" name="userid" placeholder="Search for a teacher by their usrid" required>
                         <button class="searchBtn">Search</button>
                     </form>
                 </div>
             </div>
 
 
-            <div class="noTeacher">
-                <img src="./Images/noDetails.png" alt="">
+            <div class="initialImage" style="visibility: {{initialImage_visibility}}; display: {{initialImage_display}}">
+                <img src="{{url_for('static', filename='Assets/noDetails.png')}}" alt="">
+            </div>
+
+
+            <!-- Div that shows teacher details in div -->
+            <div class="showTeacherDetail"
+                style="visibility: {{showTeacherDetail_visibility}}; display: {{showTeacherDetail_display}}">
+
+                {% for list in Result %}
+                <div class="detailsContainer">
+                    <div class="basicDetails">
+                        <h3>{{list[0]}}</h3>
+                        <div class="name">
+                            <h3>{{list[2]}} {{list[3]}}</h3>
+                        </div>
+                    </div>
+            
+                    <div class="contactDetails">
+                        <div class="password cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M14.491 15.5H14.5M9.5 15.5H9.50897" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M4.26781 18.8447C4.49269 20.515 5.87613 21.8235 7.55966 21.9009C8.97627 21.966 10.4153 22 12 22C13.5847 22 15.0237 21.966 16.4403 21.9009C18.1239 21.8235 19.5073 20.515 19.7322 18.8447C19.879 17.7547 20 16.6376 20 15.5C20 14.3624 19.879 13.2453 19.7322 12.1553C19.5073 10.485 18.1239 9.17649 16.4403 9.09909C15.0237 9.03397 13.5847 9 12 9C10.4153 9 8.97627 9.03397 7.55966 9.09909C5.87613 9.17649 4.49269 10.485 4.26781 12.1553C4.12105 13.2453 4 14.3624 4 15.5C4 16.6376 4.12105 17.7547 4.26781 18.8447Z" stroke="currentColor" stroke-width="1.5" />
+                                <path d="M7.5 9V6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p>{{list[1]}}</p>
+                        </div>
+                        <div class="phone cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M9.1585 5.71223L8.75584 4.80625C8.49256 4.21388 8.36092 3.91768 8.16405 3.69101C7.91732 3.40694 7.59571 3.19794 7.23592 3.08785C6.94883 3 6.6247 3 5.97645 3C5.02815 3 4.554 3 4.15597 3.18229C3.68711 3.39702 3.26368 3.86328 3.09497 4.3506C2.95175 4.76429 2.99278 5.18943 3.07482 6.0397C3.94815 15.0902 8.91006 20.0521 17.9605 20.9254C18.8108 21.0075 19.236 21.0485 19.6496 20.9053C20.137 20.7366 20.6032 20.3131 20.818 19.8443C21.0002 19.4462 21.0002 18.9721 21.0002 18.0238C21.0002 17.3755 21.0002 17.0514 20.9124 16.7643C20.8023 16.4045 20.5933 16.0829 20.3092 15.8362C20.0826 15.6393 19.7864 15.5077 19.194 15.2444L18.288 14.8417C17.6465 14.5566 17.3257 14.4141 16.9998 14.3831C16.6878 14.3534 16.3733 14.3972 16.0813 14.5109C15.7762 14.6297 15.5066 14.8544 14.9672 15.3038C14.4304 15.7512 14.162 15.9749 13.834 16.0947C13.5432 16.2009 13.1588 16.2403 12.8526 16.1951C12.5071 16.1442 12.2426 16.0029 11.7135 15.7201C10.0675 14.8405 9.15977 13.9328 8.28011 12.2867C7.99738 11.7577 7.85602 11.4931 7.80511 11.1477C7.75998 10.8414 7.79932 10.457 7.90554 10.1663C8.02536 9.83828 8.24905 9.56986 8.69643 9.033C9.14586 8.49368 9.37058 8.22402 9.48939 7.91891C9.60309 7.62694 9.64686 7.3124 9.61719 7.00048C9.58618 6.67452 9.44362 6.35376 9.1585 5.71223Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            <p>{{list[5]}}</p>
+                        </div>
+                        <div class="mail cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M2 5L8.91302 8.92462C11.4387 10.3585 12.5613 10.3585 15.087 8.92462L22 5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                                <path d="M10.5 19.5C10.0337 19.4939 9.56682 19.485 9.09883 19.4732C5.95033 19.3941 4.37608 19.3545 3.24496 18.2184C2.11383 17.0823 2.08114 15.5487 2.01577 12.4814C1.99475 11.4951 1.99474 10.5147 2.01576 9.52843C2.08114 6.46113 2.11382 4.92748 3.24495 3.79139C4.37608 2.6553 5.95033 2.61573 9.09882 2.53658C11.0393 2.4878 12.9607 2.48781 14.9012 2.53659C18.0497 2.61574 19.6239 2.65532 20.755 3.79141C21.8862 4.92749 21.9189 6.46114 21.9842 9.52844C21.9939 9.98251 21.9991 10.1965 21.9999 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M19 17C19 17.8284 18.3284 18.5 17.5 18.5C16.6716 18.5 16 17.8284 16 17C16 16.1716 16.6716 15.5 17.5 15.5C18.3284 15.5 19 16.1716 19 17ZM19 17V17.5C19 18.3284 19.6716 19 20.5 19C21.3284 19 22 18.3284 22 17.5V17C22 14.5147 19.9853 12.5 17.5 12.5C15.0147 12.5 13 14.5147 13 17C13 19.4853 15.0147 21.5 17.5 21.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p>{{list[4]}}</p>
+                        </div>
+                        <div class="address cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M7 18C5.17107 18.4117 4 19.0443 4 19.7537C4 20.9943 7.58172 22 12 22C16.4183 22 20 20.9943 20 19.7537C20 19.0443 18.8289 18.4117 17 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="currentColor" stroke-width="1.5" />
+                                <path d="M13.2574 17.4936C12.9201 17.8184 12.4693 18 12.0002 18C11.531 18 11.0802 17.8184 10.7429 17.4936C7.6543 14.5008 3.51519 11.1575 5.53371 6.30373C6.6251 3.67932 9.24494 2 12.0002 2C14.7554 2 17.3752 3.67933 18.4666 6.30373C20.4826 11.1514 16.3536 14.5111 13.2574 17.4936Z" stroke="currentColor" stroke-width="1.5" />
+                            </svg>
+                            <p>{{list[8]}}</p>
+                        </div>
+                    </div>
+            
+                    <div class="additionalDetails">
+                        <div class="row">
+                            <div class="department">
+                                <p>Department</p>
+                                <p>{{list[6]}}</p>
+                            </div>
+                            <div class="gender">
+                                <p>Gender</p>
+                                <p>{{list[7]}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Div that show "No any teacher exist for this userid" -->
+            <div class="noTeacher" style="visibility: {{noTeacher_visibility}}; display: {{noTeacher_display}}">
+                <p>No any Teacher exist for UserID "{{userid}}" This is a UserID of a Student.</p>
+            </div>
+
+            <!-- Div that show "no user exist for this userid" -->
+            <div class="noUser" style="visibility: {{noUser_visibility}}; display: {{noUser_display}}">
+                <p>User not registered for UserID "{{userid}}".</p>
+                <a href="/show_add_teacher_form">Add New Teacher</a>
             </div>
 
             <div class="addTeacher">
-                <p>You can add a new Teacher <a href="">here</a> and to update details <a href="">click here</a>!</p>
+                <p>You can add a new Teacher <a href="/show_add_teacher_form">here</a> and to update details <a href="/show_update_teacher_details_form">click here</a>!</p>
             </div>
         </div>
 
-
-        
     </div>
 
-
-
-    <!-- js code to scroll on the teacher section with the response on search -->
-    <script>
-        // Scroll to the anchor if provided by the backend
-        const anchor = "{{ anchor }}";
-        if (anchor) {
-            const element = document.getElementById(anchor);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    </script>
 </body>
 
 </html>
