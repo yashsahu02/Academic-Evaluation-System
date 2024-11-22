@@ -151,28 +151,24 @@ def search_teacher():
     user_detail=cursor.fetchall()
     if len(user_detail)==0:
         # return "No any Teacher exist for this userid....."
-        return render_template('adminTeachers.html',noUser_visibility="visible",noUser_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid, anchor="teacher")
+        return render_template('adminTeachers.html',noUser_visibility="visible",noUser_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid)
         
     category=user_detail[0][2]
     if category=="S":
         # return "No any Teacher exist for this userid....."
         
-        return render_template('adminTeachers.html',noTeacher_visibility="visible",noTeacher_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid, anchor="teacher")
+        return render_template('adminTeachers.html',noTeacher_visibility="visible",noTeacher_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid)
     
     else:
         cursor.execute("""SELECT login.userid,login.password,facultyinfo.fname,facultyinfo.lname,facultyinfo.email,facultyinfo.phone,facultyinfo.dname,facultyinfo.gender,facultyinfo.address FROM `login` INNER JOIN `facultyinfo` ON login.userid=facultyinfo.userid and login.userid='{}';""".format(userid))
         result=cursor.fetchall()
-        if len(result)==0:
-            # return "Teacher is registerd for this userid but information is not updated......"
-            return render_template('adminTeachers.html',noDetails_visibility="visible",noDetails_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid,anchor="teacher")
-        else:
-            # return render_template('teacherDetail.html',Result=result)
-            return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result,anchor="teacher")
+        return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result)
 
 
 @app.route('/show_update_teacher_details_form')
 def show_update_teacher_details_form():
     return render_template('updateTeacherDetails.html')
+
 
 @app.route('/update_teacher_details',methods=['POST'])
 def update_teacher_details():
@@ -223,8 +219,6 @@ def update_teacher_details():
                     conn.rollback()
                     return f"An error occurred: {str(e)}"
                 
-
-
         else:
             return "This is userid of a student"
                                 
@@ -232,6 +226,42 @@ def update_teacher_details():
         return "No user for this userid....<a href=''>Try Again!</a>"
             
     
+@app.route('/show_add_teacher_form')
+def show_add_teacher_form():
+    return render_template('addNewTeacher.html')
+
+@app.route('/add_new_teacher',methods=['POST'])
+def add_new_teacher():
+    userid=request.form.get('userid')  
+    userid=userid.replace(' ','')
+    password=request.form.get('password')
+    ## Here we need to specify the category 
+    category="F"
+    fname=request.form.get('fname')
+    lname=request.form.get('lname')
+    email=request.form.get('email')
+    phone=request.form.get('phone')
+    gender=request.form.get('gender')
+    dname=request.form.get('dname')
+    address=request.form.get('address')
+    
+     
+    cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
+    user_login_detail=cursor.fetchall()
+    
+    if(len(user_login_detail)>0):
+        return "User already exist for this userid"                        
+    else:
+        # insert values in "login" table for new teacher
+        cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
+        conn.commit()
+        
+        # add details for teacher in "facultyinfo" table 
+        cursor.execute("""INSERT INTO `facultyinfo`(`userid`,`fname`,`lname`,`email`,`phone`,`dname`,`gender`,`address`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,fname,lname,email,phone,dname,gender,address))
+        conn.commit()
+        return "New Teacher Added Successfully......"
+        
+     
     
 
 if __name__=="__main__":
