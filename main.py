@@ -138,7 +138,8 @@ def logout():
     # return render_template("login.html")
 
 ## we will add this logout in our home page
-        
+    
+################ Actions Admin Can Perform after Login #########################    
   
 ### Action to perform when admin search for any teacher
 @app.route('/search_teacher',methods=['POST'])
@@ -165,11 +166,13 @@ def search_teacher():
         return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result)
 
 
+##### form to show when admin clicks for update teacher details 
 @app.route('/show_update_teacher_details_form')
 def show_update_teacher_details_form():
     return render_template('updateTeacherDetails.html')
 
 
+##### actions to perform when admin clicks for update teacher details (submit admin details update form)
 @app.route('/update_teacher_details',methods=['POST'])
 def update_teacher_details():
     userid=request.form.get('userid')  
@@ -191,7 +194,7 @@ def update_teacher_details():
     if(len(user_login_detail)>0):
         
         category=user_login_detail[0][2]
-        if(category=="F"):
+        if(category=="F"): ## if category is "F"
             cursor.execute("""SELECT * FROM `facultyinfo` WHERE `userid` LIKE '{}'""".format(userid))
             user_details=cursor.fetchall()
             if(len(user_details)>0):
@@ -225,11 +228,12 @@ def update_teacher_details():
     else:
         return "No user for this userid....<a href=''>Try Again!</a>"
             
-    
+### form to show when admin clicks for add teacher    
 @app.route('/show_add_teacher_form')
 def show_add_teacher_form():
     return render_template('addNewTeacher.html')
 
+### actions to perform when admin fills the add teacher form and submit it
 @app.route('/add_new_teacher',methods=['POST'])
 def add_new_teacher():
     userid=request.form.get('userid')  
@@ -259,10 +263,42 @@ def add_new_teacher():
         # add details for teacher in "facultyinfo" table 
         cursor.execute("""INSERT INTO `facultyinfo`(`userid`,`fname`,`lname`,`email`,`phone`,`dname`,`gender`,`address`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,fname,lname,email,phone,dname,gender,address))
         conn.commit()
-        return "New Teacher Added Successfully......"
+        return "New Teacher Added Successfully! You can close this tab and move to previous tab...."
         
+
+####### Admin Actions with respect to Student ----->
+
+# ### Action to perform when admin search for any student
+# @app.route('/search_student',methods=['POST'])
+# def search_student():
+#     userid=request.form.get('userid') 
      
+#     userid=userid.replace(' ','')
     
+#     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
+#     user_detail=cursor.fetchall()
+#     if len(user_detail)==0:
+#         # return "No any Teacher exist for this userid....."
+#         return render_template('adminStudents.html',noUser_visibility="visible",noUser_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid)
+        
+#     category=user_detail[0][2]
+#     if category=="F":
+#         # return "No any Teacher exist for this userid....."
+        
+#         return render_template('adminStudents.html',noTeacher_visibility="visible",noTeacher_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid)
+    
+#     else:
+#         cursor.execute("""SELECT login.userid,login.password,studentinfo.fname,studentinfo.lname,studentinfo.email,studentinfo.phone,studentinfo.dname,studentinfo.gender,studentinfo.address FROM `login` INNER JOIN `studentinfo` ON login.userid=studentinfo.userid and login.userid='{}';""".format(userid))
+#         result=cursor.fetchall()
+#         return render_template('adminStudents.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result)
+     
+
+     
+     
+### form to show when admin clicks for add student    
+@app.route('/show_add_student_form')
+def show_add_student_form():
+    return render_template('addNewStudent.html')
 
 if __name__=="__main__":
     app.run(debug=True)

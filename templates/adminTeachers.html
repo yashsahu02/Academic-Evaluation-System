@@ -104,8 +104,9 @@
 
         /* details of the teacher */
         .detailsContainer {
-            width: 30%;
+            width: 50%;
             margin: auto;
+            border: 1px solid #A7A7A7;
             box-shadow: 0px 4px 5px #A7A7A7;
             border-radius: 5px;
             padding:20px;
@@ -236,6 +237,7 @@
         /* Add new teacher and update paragraph */
         .addTeacher {
             width: 90%;
+            left: 259px;
             margin: auto;
             position: fixed;
             bottom: 50px;
@@ -245,6 +247,8 @@
         }
 
         .addTeacher>p {
+            display:inline-block;
+            width:100%;
             margin: auto;
             text-align: center;
         }
@@ -362,7 +366,7 @@
 
 
             <div class="initialImage" style="visibility: {{initialImage_visibility}}; display: {{initialImage_display}}">
-                <img src="{{url_for('static', filename='Assets/noDetails.png')}}" alt="">
+                <img src="{{url_for('static', filename='Assets/noTeacherDetails.png')}}" alt="">
             </div>
 
 
@@ -440,7 +444,7 @@
             </div>
 
             <div class="addTeacher">
-                <p>You can add a new Teacher <a href="/show_add_teacher_form">here</a> and to update details <a href="/show_update_teacher_details_form">click here</a>!</p>
+                <p>You can add a new Teacher <a target="_blank" href="/show_add_teacher_form">here</a> and to update details <a target="_blank" href="/show_update_teacher_details_form">click here</a>!</p>
             </div>
         </div>
 

@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <title>Add New Teacher Page</title>
+    <title>Add New Student Page</title>
     <style>
         * {
             padding: 0;
@@ -104,8 +104,8 @@
 
 <body>
     <div class="form-container">
-        <h2 class="h2-in-form">Add New Teacher</h2>
-        <form method='post' action='/add_new_teacher'>
+        <h2 class="h2-in-form">Add New Student</h2>
+        <form method='post' action='/add_new_student'>
             <div class="form-row">
                 <div class="form-group">
                     <label for="userid">User ID</label>
@@ -166,6 +166,50 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <select name="course" id="course">
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="B.Pharma">B.Pharma</option>
+                        <option value="BALLB">BALLB</option>
+                        <option value="Diploma">Diploma Department</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="courseBranch">Course Branch</label>
+                    <select name="courseBranch" id="courseBranch">
+                        <option value="CS">CS</option>
+                        <option value="CS-AIML">CS-AIML</option>
+                        <option value="ME">ME</option>
+                        <option value="ECE"></option>
+                        <!--
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Management">Management Department</option>
+                        <option value="Education">Education Department</option>
+                        .
+                        .
+                        . 
+                        . 
+                        -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="admi_year">Admission Year</label>
+                    <input type="date" id="admi_year" name="admi_year" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">DOB</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+            </div>
+
             <div class="form-row address-holder">
                 <div class="form-group">
                     <label for="address">Address</label>
@@ -173,7 +217,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="add_details">Add Teacher</button>
+            <button type="submit" class="add_details">Add Student</button>
 
         </form>
     </div>
