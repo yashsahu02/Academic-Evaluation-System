@@ -67,7 +67,8 @@
             color: #555;
         }
 
-        .form-group input,select {
+        .form-group input,
+        select {
             width: 85%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -89,7 +90,7 @@
             outline: none;
         }
 
-        .add_details{
+        .add_details {
             background-color: #007bff;
             color: white;
             border: none;
@@ -120,95 +121,80 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="fname" required>
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" required>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lname" required>
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
                 </div>
             </div>
 
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <!-- <input type="email" id="phone-number" name="phone-number" required> -->
-                    <input placeholder="Format: 10-digit number" type="tel" maxlength="10" minlength="10" id="phone" name="phone" pattern="[0-9]{10}" required>
-                </div>
-            </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select name="gender" id="lang">
+                    <select name="gender" id="lang" required>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="dname">Department</label>
-                    <select name="dname" id="lang">
-                        <option value="Computer Science &amp; Engineering">Computer Science &amp; Engineering</option>
-                        <option value="Mechanical Engineering">Mechanical Engineering</option>
-                        <option value="Electical & Electronics Engineering">Electical Engineering</option>
-                        <option value="Civil Engineering">Civil Engineering</option>
-                        <option value="Pharmacy">Pharmacy</option>
-                        <option value="Management">Management Department</option>
-                        <option value="Education">Education Department</option>
-                    </select>
+                    <label for="email" required>Email Address</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
             </div>
 
             <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Numbe</label>
+                    <!-- <input type="email" id="phone-number" name="phone-number" required> -->
+                    <input placeholder="Format: 10-digit number" type="tel" maxlength="10" minlength="10" id="phone"
+                        name="phone" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="admission_year">Admission Year</label>
+                    <input type="number" placeholder="YYYY" min="2022" max="2025" id="admission_year"
+                        name="admission_year" required>
+                </div>
+            </div>
+
+            <div class="form-row address-holder">
+                <div class="form-group">
+                    <label for="department" required>Department</label>
+                    <select name="department" id="department" required onchange="populateCourses(this.id,'course')">
+                        <option hidden  disabled selected value>Select Department</option>
+                        <option value="ENG">Engineering</option>
+                        <option value="MGMT">Management</option>
+                        <!-- Other Departments will be added later -->
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+
                 <div class="form-group">
                     <label for="course">Course</label>
-                    <select name="course" id="course">
-                        <option value="B.Tech">B.Tech</option>
-                        <option value="BCA">BCA</option>
-                        <option value="MBA">MBA</option>
-                        <option value="B.Pharma">B.Pharma</option>
-                        <option value="BALLB">BALLB</option>
-                        <option value="Diploma">Diploma Department</option>
+                    <select name="course" id="course" required onchange="populateCourseBranches(this.id,'course_branch')">
+                        <option hidden disabled selected value>Select Course</option>
+                        <!--List of options (Course) will be shown according to selected Department-->
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="courseBranch">Course Branch</label>
-                    <select name="courseBranch" id="courseBranch">
-                        <option value="CS">CS</option>
-                        <option value="CS-AIML">CS-AIML</option>
-                        <option value="ME">ME</option>
-                        <option value="ECE"></option>
-                        <!--
-                        <option value="Civil Engineering">Civil Engineering</option>
-                        <option value="Pharmacy">Pharmacy</option>
-                        <option value="Management">Management Department</option>
-                        <option value="Education">Education Department</option>
-                        .
-                        .
-                        . 
-                        . 
-                        -->
+                    <label for="course_branch">Select Course Branch</label>
+                    <select name="course_branch" id="course_branch" required>
+                        <option hidden disabled selected value>Select Course Branch</option>
+                        <!--List of options (Course Branch) will be shown according to selected Course-->
                     </select>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="admi_year">Admission Year</label>
-                    <input type="date" id="admi_year" name="admi_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="dob">DOB</label>
-                    <input type="date" id="dob" name="dob" required>
-                </div>
-            </div>
+
 
             <div class="form-row address-holder">
                 <div class="form-group">
@@ -221,6 +207,66 @@
 
         </form>
     </div>
+
+
+
+    <!-- JS -->
+    <script>
+        // function to show available Course in selected Department
+        function populateCourses(s1,s2)
+        {
+            var s1 = document.getElementById(s1)
+            var s2 = document.getElementById(s2)
+
+            s2.innerHTML = "<option hidden disabled selected value>Select Course</option>"
+            if(s1.value=="ENG"){
+                var optionArray = ['BT|B.Tech','MT|M.Tech','BCA|BCA']
+            }
+            
+
+            for(option in optionArray){
+                var pair = optionArray[option].split("|");
+                var newoption = document.createElement("option");
+
+                newoption.value = pair[0];
+                newoption.innerHTML = pair[1];
+
+                s2.options.add(newoption);
+            }
+
+            // similarly logic for other departments can be written
+        }
+
+        // function to show available Course Branches in selected Course
+        function populateCourseBranches(s1,s2){
+            var s1 = document.getElementById(s1)
+            var s2 = document.getElementById(s2)
+
+            s2.innerHTML = "<option hidden disabled selected value>Select Course Branch</option>"
+            if(s1.value=="BT"){
+                var optionArray = ['CSE|Computer Science and Engineering','ME|Mechanical Engineering','CE|Civil Engineering']
+            }
+
+            else if(s1.value=="MT"){
+                var optionArray = ['CSE|Computer Science and Engineering','ME|Mechanical Engineering','CE|Civil Engineering']
+            }
+
+            else if(s1.value=="BCA"){
+                var optionArray = ['AIDA|Artificial Intelligence and Data Analysis']
+            }
+
+            for(option in optionArray){
+                var pair = optionArray[option].split("|");
+                var newoption = document.createElement("option");
+
+                newoption.value = pair[0];
+                newoption.innerHTML = pair[1];
+
+                s2.options.add(newoption);
+            }
+        }
+
+    </script>
 </body>
 
 </html>

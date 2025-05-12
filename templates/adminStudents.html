@@ -104,7 +104,7 @@
 
         /* details of the Student */
         .detailsContainer {
-            width: 30%;
+            width: 45%;
             margin: auto;
             border: 1px solid #A7A7A7;
             box-shadow: 0px 4px 5px #A7A7A7;
@@ -113,12 +113,12 @@
         }
 
         .basicDetails{
-            margin-top: 30px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .basicDetails>h3{
@@ -129,7 +129,7 @@
             font-weight: 700;
         }
 
-        .contactDetails{
+        .otherDetails{
             width:90%;
             margin-top: 30px;
             display: flex;
@@ -149,45 +149,6 @@
         .cd-row>p{
             margin:0;
         }
-
-        .additionalDetails{
-            width: 90%;
-            margin: auto;
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .additionalDetails>p{
-            margin:0;
-        }
-
-        .row{
-            width:100%;
-            display: flex;
-            justify-content: space-between;
-            align
-        }
-
-        .department{
-            display:inline-block;
-        }
-        .gender{
-            display:inline-block;
-        }
-
-        .department p:nth-of-type(2){
-            color:#A7A7A7;
-        }
-        .gender p:nth-of-type(2){
-            color:#A7A7A7;
-        }
-
-
-        
 
         /* styling for div which shows Student doesn't exist */
         .noStudent {
@@ -343,10 +304,10 @@
         </div>
 
 
-        <!-- Teachers Part-->
+        <!-- Student Part-->
 
         <div class="student-part" id="student">
-            <!-- Search for a teacher -->
+            <!-- Search for a student -->
             <div class="search-student">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000"
@@ -372,9 +333,9 @@
             </div>
 
 
-            <!-- Div that shows teacher details in div -->
+            <!-- Div that shows student details in div -->
             <div class="showStudentDetail"
-                style="visibility: {{showTeacherDetail_visibility}}; display: {{showTeacherDetail_display}}">
+                style="visibility: {{showStudentDetail_visibility}}; display: {{showStudentDetail_display}}">
 
                 {% for list in Result %}
                 <div class="detailsContainer">
@@ -385,7 +346,7 @@
                         </div>
                     </div>
             
-                    <div class="contactDetails">
+                    <div class="otherDetails">
                         <div class="password cd-row">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
                                 <path d="M14.491 15.5H14.5M9.5 15.5H9.50897" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -400,6 +361,7 @@
                             </svg>
                             <p>{{list[5]}}</p>
                         </div>
+
                         <div class="mail cd-row">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
                                 <path d="M2 5L8.91302 8.92462C11.4387 10.3585 12.5613 10.3585 15.087 8.92462L22 5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
@@ -408,41 +370,60 @@
                             </svg>
                             <p>{{list[4]}}</p>
                         </div>
+
+                        <div class="dept_name cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M2 5L8.91302 8.92462C11.4387 10.3585 12.5613 10.3585 15.087 8.92462L22 5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                                <path d="M10.5 19.5C10.0337 19.4939 9.56682 19.485 9.09883 19.4732C5.95033 19.3941 4.37608 19.3545 3.24496 18.2184C2.11383 17.0823 2.08114 15.5487 2.01577 12.4814C1.99475 11.4951 1.99474 10.5147 2.01576 9.52843C2.08114 6.46113 2.11382 4.92748 3.24495 3.79139C4.37608 2.6553 5.95033 2.61573 9.09882 2.53658C11.0393 2.4878 12.9607 2.48781 14.9012 2.53659C18.0497 2.61574 19.6239 2.65532 20.755 3.79141C21.8862 4.92749 21.9189 6.46114 21.9842 9.52844C21.9939 9.98251 21.9991 10.1965 21.9999 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M19 17C19 17.8284 18.3284 18.5 17.5 18.5C16.6716 18.5 16 17.8284 16 17C16 16.1716 16.6716 15.5 17.5 15.5C18.3284 15.5 19 16.1716 19 17ZM19 17V17.5C19 18.3284 19.6716 19 20.5 19C21.3284 19 22 18.3284 22 17.5V17C22 14.5147 19.9853 12.5 17.5 12.5C15.0147 12.5 13 14.5147 13 17C13 19.4853 15.0147 21.5 17.5 21.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p>{{list[6]}}</p>
+                        </div>
+
+                        <div class="course cd-row">
+                            
+                            <p style="margin-left:45px">{{list[7]}}</p>
+                        </div>
+
+                        <div class="course_branch cd-row">
+                            
+                            <p style="margin-left:45px">{{list[8]}}</p>
+                        </div>
+                        
+                        <div class="gender cd-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+                                <path d="M7 18C5.17107 18.4117 4 19.0443 4 19.7537C4 20.9943 7.58172 22 12 22C16.4183 22 20 20.9943 20 19.7537C20 19.0443 18.8289 18.4117 17 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="currentColor" stroke-width="1.5" />
+                                <path d="M13.2574 17.4936C12.9201 17.8184 12.4693 18 12.0002 18C11.531 18 11.0802 17.8184 10.7429 17.4936C7.6543 14.5008 3.51519 11.1575 5.53371 6.30373C6.6251 3.67932 9.24494 2 12.0002 2C14.7554 2 17.3752 3.67933 18.4666 6.30373C20.4826 11.1514 16.3536 14.5111 13.2574 17.4936Z" stroke="currentColor" stroke-width="1.5" />
+                            </svg>
+                            <p>{{list[9]}}</p>
+                        </div>
+
                         <div class="address cd-row">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
                                 <path d="M7 18C5.17107 18.4117 4 19.0443 4 19.7537C4 20.9943 7.58172 22 12 22C16.4183 22 20 20.9943 20 19.7537C20 19.0443 18.8289 18.4117 17 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                                 <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="currentColor" stroke-width="1.5" />
                                 <path d="M13.2574 17.4936C12.9201 17.8184 12.4693 18 12.0002 18C11.531 18 11.0802 17.8184 10.7429 17.4936C7.6543 14.5008 3.51519 11.1575 5.53371 6.30373C6.6251 3.67932 9.24494 2 12.0002 2C14.7554 2 17.3752 3.67933 18.4666 6.30373C20.4826 11.1514 16.3536 14.5111 13.2574 17.4936Z" stroke="currentColor" stroke-width="1.5" />
                             </svg>
-                            <p>{{list[8]}}</p>
+                            <p>{{list[10]}}</p>
                         </div>
+
                     </div>
-            
-                    <div class="additionalDetails">
-                        <div class="row">
-                            <div class="department">
-                                <p>Department</p>
-                                <p>{{list[6]}}</p>
-                            </div>
-                            <div class="gender">
-                                <p>Gender</p>
-                                <p>{{list[7]}}</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                     
                 </div>
+                {% endfor %}
+
             </div>
 
             <!-- Div that show "No any student exist for this userid" -->
             <div class="noStudent" style="visibility: {{noStudent_visibility}}; display: {{noStudent_display}}">
-                <p>No any Student exist for UserID "{{userid}}" This is a UserID of a Student.</p>
+                <p>No any Student exist for UserID "{{userid}}" This is a UserID of a Teacher.</p>
             </div>
 
             <!-- Div that show "no user exist for this userid" -->
             <div class="noUser" style="visibility: {{noUser_visibility}}; display: {{noUser_display}}">
                 <p>User not registered for UserID "{{userid}}".</p>
-                <a href="/show_add_teacher_form">Add New Teacher</a>
+                <a href="/show_add_student_form">Add New Student</a>
             </div>
 
             <div class="addStudent">
