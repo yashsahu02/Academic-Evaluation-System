@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <title>Message</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Kumbh sans";
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: #f2f2f2;
+        }
+        .message-box {
+            background-color: #ffffff;
+            padding: 30px 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .message-box h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h2>{{ message }}</h2>
+    </div>
+</body>
+</html>

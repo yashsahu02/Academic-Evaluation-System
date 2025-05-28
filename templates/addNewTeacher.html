@@ -95,9 +95,34 @@
             border: none;
             padding: 10px 15px;
             cursor: pointer;
-            width: 30%;
+            width: 42%;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        .clear_details_btn{
+            background-color:#f30904;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            width: 42%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-button-row{
+            width:100%;
+            display:flex;
+            justify-content: space-evenly;
+            align-items:center;
+        }
+
+        .button-cont{
+            width:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
     </style>
 </head>
@@ -120,61 +145,76 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="fname" required>
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" required>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lname" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
             </div>
 
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <!-- <input type="email" id="phone-number" name="phone-number" required> -->
                     <input placeholder="Format: 10-digit number" type="tel" maxlength="10" minlength="10" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="department" required>Department</label>
+                    <select name="department" id="department" required onchange="populateCourses(this.id,'course')">
+                        <option hidden  disabled selected value>Select Department</option>
+                        <option value="ENG">Engineering</option>
+                        <option value="MGMT">Management</option>
+                        <!-- Other Departments will be added later -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="designation" required>Designation</label>
+                    <select name="designation" id="designation" required>
+                        <option hidden disabled selected value>Select Designation</option>
+                        <option value="Assistant Professor">Assistant Professor</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Professor">Professor</option>
+                        <!-- Other Designations can be added later here -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="salary">Salary</label>
+                    <input type="number" min="20000" max="100000" name="salary" id="salary" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select name="gender" id="lang">
+                    <select name="gender" id="lang" required>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="dname">Department</label>
-                    <select name="dname" id="lang">
-                        <option value="Computer Science &amp; Engineering">Computer Science &amp; Engineering</option>
-                        <option value="Mechanical Engineering">Mechanical Engineering</option>
-                        <option value="Electical & Electronics Engineering">Electical Engineering</option>
-                        <option value="Civil Engineering">Civil Engineering</option>
-                        <option value="Pharmacy">Pharmacy</option>
-                        <option value="Management">Management Department</option>
-                        <option value="Education">Education Department</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="form-row address-holder">
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" required>
                 </div>
             </div>
 
-            <button type="submit" class="add_details">Add Teacher</button>
-
+            <div class="form-button-row">
+                <div class="button-cont">
+                    <button type="submit" class="add_details">Add Teacher</button>
+                </div>
+                <div class="button-cont">
+                    <button type="reset" class="clear_details_btn" value="Clear Form">Clear</button>
+                </div>
+            </div>
         </form>
     </div>
 </body>

@@ -57,7 +57,7 @@ def admin_login_validation():
     if code=="9460":
         return render_template("adminDashboard.html")
     else:
-        return "Wrong Code! Enter the valid code..." 
+        return render_template('message.html',message="Wrong Code! Enter the valid code... Press Back and Try again." )
 
 
 @app.route('/login_validation', methods=['POST'])
@@ -94,7 +94,7 @@ def login_validation():
             return "Wrong Password........."
             
     else:
-        return "Invalid UserID or Password....<a href='/'>Try Again!</a>"
+        return render_template('message.html',message="Invalid UserID or Password....<a href='/'>Try Again!</a>")
        
     # return "UserID: {} and Password: {}".format(userid,password)
 
@@ -116,10 +116,10 @@ def register():
             if(len(userid_details)==0):
                 cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
                 conn.commit()
-                return "User Added Successfully...."
+                return render_template('message.html',message="User Added Successfully... Press Back to Return!")
             
             else:
-                return "User Exist for this userid......."
+                return render_template('message.html',message="User Exist for this UserID..... Press Back and use other UsedID!")
                 
         
         except IndexError:
@@ -130,7 +130,7 @@ def register():
         # session['user_id']=myuser[0][0]
         # return redirect('/home')   
     else:
-        return "Wrong Code!.. Please Enter the valid code...."
+        return render_template('message.html',message="Wrong Code!.. Please press Back and Enter the valid code....")
     
     
 @app.route('/logout',methods=['POST'])
@@ -159,13 +159,13 @@ def search_teacher():
     category=user_detail[0][2]
     if category=="S":
         # return "No any Teacher exist for this userid....."
-        
         return render_template('adminTeachers.html',noTeacher_visibility="visible",noTeacher_display="block",initialImage_visibility="hidden",initialImage_display="none",userid=userid)
     
     else:
-        cursor.execute("""SELECT login.userid,login.password,facultyinfo.fname,facultyinfo.lname,facultyinfo.email,facultyinfo.phone,facultyinfo.dname,facultyinfo.gender,facultyinfo.address FROM `login` INNER JOIN `facultyinfo` ON login.userid=facultyinfo.userid and login.userid='{}';""".format(userid))
+        cursor.execute("""SELECT login.userid,login.password,teacher.full_name,teacher.email,teacher.phone,department.department_name,teacher.gender,teacher.address FROM `login` INNER JOIN `teacher` ON login.userid=teacher.teacher_id INNER JOIN department ON teacher.department_id = department.department_id WHERE login.userid='{}';""".format(userid))
         result=cursor.fetchall()
-        return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result)
+        return render_template('message.html',message=result)
+        # return render_template('adminTeachers.html',showTeacherDetail_visibility="visible",showTeacherDetail_display="block",initialImage_visibility="hidden",initialImage_display="none",Result=result)
 
 
 ##### form to show when admin clicks for update teacher details 
@@ -180,55 +180,40 @@ def update_teacher_details():
     userid=request.form.get('userid')  
     userid=userid.replace(' ','')
     password=request.form.get('password')
-    fname=request.form.get('fname')
-    lname=request.form.get('lname')
+    ## Here we need to specify the category 
+    category="F"
+    full_name=request.form.get('full_name')
     email=request.form.get('email')
     phone=request.form.get('phone')
-    # phone=phone.replace('-','')
+    department_id=request.form.get('department')
+    designation=request.form.get('designation')
+    salary=request.form.get('salary')
     gender=request.form.get('gender')
-    dname=request.form.get('dname')
     address=request.form.get('address')
     
      
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
     user_login_detail=cursor.fetchall()
     
-    if(len(user_login_detail)>0):
-        
+    if(len(user_login_detail)>0): ## it means user exist 
         category=user_login_detail[0][2]
         if(category=="F"): ## if category is "F"
-            cursor.execute("""SELECT * FROM `facultyinfo` WHERE `userid` LIKE '{}'""".format(userid))
-            user_details=cursor.fetchall()
-            if(len(user_details)>0):
-                ## len(user_details)>0 so Here details are available it means we need to update it
-                try:
-                    # Update details
-                    cursor.execute("""UPDATE `facultyinfo` SET `fname` = %s, `lname` = %s, `email` = %s, `phone` = %s, `dname` = %s, `gender` = %s, `address` = %s WHERE userid = %s""",(fname,lname,email,phone,dname,gender,address,userid))
-                    # Update password
-                    cursor.execute("""UPDATE `login` SET password = %s WHERE userid = %s""",(password,userid))
-                    conn.commit()
-                    return "Details updated successfully."
+            try:
+                # Update details
+                cursor.execute("""UPDATE `teacher` SET `full_name` = %s, `email`= %s, `phone` = %s, `department_id` = %s, `designation` = %s, `salary` = %s, `gender` = %s `address` = %s WHERE userid = %s""",(full_name,email,phone,department_id,designation,salary,gender,address,userid))
+                # Update password
+                cursor.execute("""UPDATE `login` SET password = %s WHERE userid = %s""",(password,userid))
+                conn.commit()
+                return render_template('message.html',message="Details updated successfully. Press Back to Return!")
                 
-                except Exception as e:
-                    conn.rollback()
-                    return f"An error occurred: {str(e)}"
-            
-            else:
-                ## else we will add details
-                try:
-                    cursor.execute("""INSERT INTO `facultyinfo`(`userid`,`fname`,`lname`,`email`,`phone`,`dname`,`gender`,`address`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,fname,lname,email,phone,dname,gender,address))
-                    conn.commit()
-                    return "Details added successfully."
-                        
-                except Exception as e:
-                    conn.rollback()
-                    return f"An error occurred: {str(e)}"
-                
+            except Exception as e:
+                conn.rollback()
+                return render_template('message.html',message=f"An error occurred: {str(e)}")    
         else:
-            return "This is userid of a student"
-                                
+            return render_template('message.html',message="This is userid of a student. Please press Back to return!")    
+                             
     else:
-        return "No user for this userid....<a href=''>Try Again!</a>"
+        return render_template('message.html',message="No user exist for this userid '{}'. Please press Back to return!".format(userid))
             
 ### form to show when admin clicks for add teacher    
 @app.route('/show_add_teacher_form')
@@ -243,29 +228,30 @@ def add_new_teacher():
     password=request.form.get('password')
     ## Here we need to specify the category 
     category="F"
-    fname=request.form.get('fname')
-    lname=request.form.get('lname')
+    full_name=request.form.get('full_name')
     email=request.form.get('email')
     phone=request.form.get('phone')
+    department_id=request.form.get('department')
+    designation=request.form.get('designation')
+    salary=request.form.get('salary')
     gender=request.form.get('gender')
-    dname=request.form.get('dname')
     address=request.form.get('address')
     
      
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
     user_login_detail=cursor.fetchall()
     
-    if(len(user_login_detail)>0):
-        return "User (Teacher) already exist for this userid"                        
+    if(len(user_login_detail)>0): 
+        return render_template('message.html',message="A teacher is already registered with this User ID. Please press Back to return and try again.")                        
     else:
         # insert values in "login" table for new teacher
         cursor.execute("""INSERT INTO `login`(`userid`,`password`,`category`) VALUES('{}','{}','{}')""".format(userid,password,category))
         conn.commit()
         
         # add details for teacher in "facultyinfo" table 
-        cursor.execute("""INSERT INTO `facultyinfo`(`userid`,`fname`,`lname`,`email`,`phone`,`dname`,`gender`,`address`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,fname,lname,email,phone,dname,gender,address))
+        cursor.execute("""INSERT INTO `teacher`(`teacher_id`,`full_name`,`email`,`phone`,`department_id`,`designation`,`salary`,`gender`,`address`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,full_name,email,phone,department_id,designation,salary,gender,address))
         conn.commit()
-        return "New Teacher Added Successfully! You can close this tab and move to previous tab...."
+        return render_template('message.html',message="New Teacher Added Successfully! Please press Back and move to previous tab....")
         
 
 ####### Admin Actions with respect to Student ----->
@@ -308,7 +294,7 @@ def show_add_student_form():
 @app.route('/add_new_student',methods=['POST'])
 def add_new_student():
     userid=request.form.get('userid')  
-    userid=userid.replace(' ','') ## remove whitespaces
+    userid=userid.replace(' ','') ## remove whitespaces (extra spaces)
     password=request.form.get('password')
     ## Here we need to specify the category 
     category="S"
@@ -328,14 +314,9 @@ def add_new_student():
     cursor.execute("""SELECT * FROM `login` WHERE `USERID` LIKE '{}'""".format(userid))
     user_login_detail=cursor.fetchall()
     
+    # if user already exist 
     if(len(user_login_detail)>0):
-        return "User (Student) already exist for this userid"  
-        # return render_template_string("""
-        #   <html><head><script>
-        #   alert("New Student Added Successfully! You can close this tab and move to the previous tab.");
-        #     </script></head><body></body></html>
-        # """)
-        
+        return render_template('message.html',message="User (Student) already exist for this userid. Press Back to go back...")
                               
     else:
         # insert values in "login" table for new Student
@@ -345,15 +326,8 @@ def add_new_student():
         # add details for student in "student" table 
         cursor.execute("""INSERT INTO `student`(`student_id`,`full_name`,`dob`,`gender`,`email`,`phone`,`address`,`admission_year`,`department_id`,`course_name`,`course_branch`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(userid,full_name,dob,gender,email,phone,address,admission_year,department_id,course_name,course_branch))
         conn.commit()
-        return "New Student Added Successfully! You can close this tab and move to previous tab...."
+        return render_template('message.html',message="New Student Added Successfully! You can press Back and move to previous tab....")
         
-        # return render_template('alert.html', message="New Student Added Successfully! You can close this tab and move to the previous tab.")
-        
-        # return render_template_string("""
-        #   <script>
-        #     alert("New Student Added Successfully! You can close this tab and move to the previous tab.");
-        #   </script>
-        # """)
 
 
 if __name__=="__main__":
